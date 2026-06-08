@@ -1,20 +1,4 @@
-﻿const resultCardElement = document.getElementById('result-card')!;
-const resultTextElement = document.getElementById('result-text')!;
-const circleGroupElement = document.getElementById('circle-props') as HTMLElement;
-const radiusInputElement = document.getElementById('radius') as HTMLInputElement;
-
-resultTextElement.textContent = 'Enter a radius to see the area';
-
-circleGroupElement.classList.remove('hidden');
-resultCardElement.classList.add('visible');
-
-radiusInputElement.addEventListener('input', () => {
-  const radius = Number(radiusInputElement.value) || 0;
-  const area = Math.PI * radius ** 2;
-  resultTextElement.textContent = `Area of Circle: ${area.toFixed(2)}`;
-});
-
-interface Shape {
+﻿interface Shape {
   type: string;
 }
 
@@ -34,3 +18,27 @@ interface Triangle extends Shape {
   base: number;
   height: number;
 }
+
+type Shapes = Circle | Triangle | Rectangle;
+
+const getElement = (id: string): HTMLElement => {
+  const el = document.getElementById(id);
+  if (!el) throw new Error(`Element not found: ${id}`);
+  return el;
+};
+
+let shapeTypeSelect: HTMLSelectElement;
+
+let propertyGroups: {
+  circle: HTMLElement;
+  rectangle: HTMLElement;
+  triangle: HTMLElement;
+};
+
+let propertyInputs: {
+  radius: HTMLInputElement;
+  width: HTMLInputElement;
+  height: HTMLInputElement;
+  base: HTMLInputElement;
+  triangleHeight: HTMLInputElement;
+};
